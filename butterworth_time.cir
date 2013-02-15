@@ -1,0 +1,38 @@
+Butterworth Filter
+.OPTIONS ITL1=400
+.SUBCKT MCP6021 1 2 5
+*               | | | | |
+*               | | | | Output
+*               | | | Negative Supply
+*               | | Positive Supply
+*               | Inverting Input
+*               Non-inverting Input
+*
+RIN 1 2 10e13
+ROUT Int 5 0.01
+EAMP Int 0 1 2 320k
+.ENDS MCP6021
+
+Vin Vin 0 SIN(1.65, 1, 100000)
+
+R1 Vin 11 19.6k
+R2 11 12 19.6k
+X1 12 Vs1  Vs1 MCP6021
+C1 11 Vs1 2200p
+C2 12 0 1200p
+
+R3 Vs1 21 16.0k
+R4 21 22 16.0k
+X2 22 Vs2 Vs2 MCP6021
+C3 21 Vs2 2200p
+C4 22 0 1800p
+
+R5 Vs2 31 11.8k
+R6 31 32 11.8k
+X3 32 Vout Vout MCP6021
+C5 31 Vout 2200p
+C6 32 0 3300p
+
+.tran 0 0.0001 0.000001
+.probe
+.end

@@ -1,0 +1,90 @@
+
+**** 02/10/13 17:32:14 *********** Evaluation PSpice (Nov 1999) **************
+
+ Butterworth Filter
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+.OPTIONS ITL1=400
+.SUBCKT MCP6021 1 2 5
+*               | | | | |
+*               | | | | Output
+*               | | | Negative Supply
+*               | | Positive Supply
+*               | Inverting Input
+*               Non-inverting Input
+*
+RIN 1 2 10e13
+ROUT Int 5 0.01
+EAMP Int 0 1 2 320k
+.ENDS MCP6021
+
+Vin Vin 0 1.65 AC 1
+
+R1 Vin 11 19.6k
+R2 11 12 19.6k
+X1 12 Vs1  Vs1 MCP6021
+C1 11 Vs1 1200p
+C2 12 0 2200p
+
+R3 Vs1 21 16.0k
+R4 21 22 16.0k
+X2 22 Vs2 Vs2 MCP6021
+C3 21 Vs2 1800p
+C4 22 0 2200p
+
+R5 Vs2 31 11.8k
+R6 31 32 11.8k
+X3 32 Vout Vout MCP6021
+C5 31 Vout 3300p
+C6 32 0 2200p
+
+.ac dec 1000 100 10k
+.probe
+.end
+
+**** 02/10/13 17:32:14 *********** Evaluation PSpice (Nov 1999) **************
+
+ Butterworth Filter
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   11)    1.6500  (   12)    1.6500  (   21)    1.6500  (   22)    1.6500      
+
+(   31)    1.6500  (   32)    1.6500  (  Vin)    1.6500  (  Vs1)    1.6500      
+
+(  Vs2)    1.6500  ( Vout)    1.6500  (X1.Int)    1.6500 (X2.Int)    1.6500     
+
+(X3.Int)    1.6500 
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    Vin         -5.421E-20
+
+    TOTAL POWER DISSIPATION   8.94E-20  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME             .06
+
